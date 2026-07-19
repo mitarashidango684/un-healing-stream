@@ -1,12 +1,14 @@
-<!-- ============================================================
-     じゅん ファンクラブLP（WordPress固定ページ 本文貼り付け用）
-     使い方：固定ページ編集画面で「カスタムHTML」ブロック（またはテキストエディタ／コードエディタモード）に
-     このコード全体をそのまま貼り付けてください。
-============================================================ -->
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>じゅん ファンクラブ｜ここは、少しだけ心をほどける場所。</title>
+<meta name="description" content="Spoon配信者「じゅん」のファンクラブ。優しい声と近い距離で、一日の終わりに帰ってこれる場所。まずは無料で参加できます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap');
-
 /* ============================================================
    TOKENS
 ============================================================ */
@@ -42,6 +44,7 @@ body{
   color:var(--cream);
   font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
   font-weight:400;
+  font-size:16.5px;
   line-height:1.9;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
@@ -81,8 +84,8 @@ section{
   align-items:center;
   gap:8px;
   font-family:"Shippori Mincho B1",serif;
-  font-size:13px;
-  letter-spacing:.32em;
+  font-size:14px;
+  letter-spacing:.28em;
   color:var(--gold);
   margin-bottom:22px;
 }
@@ -97,12 +100,12 @@ section{
   background:linear-gradient(180deg,transparent,var(--line-strong),transparent);
 }
 .section-title{
-  font-size:26px;
+  font-size:28px;
   margin-bottom:20px;
 }
 .lead{
   color:var(--muted);
-  font-size:15.5px;
+  font-size:17px;
   font-weight:300;
 }
 .fade-up{
@@ -204,7 +207,7 @@ section{
   align-items:center;
   gap:6px;
   color:var(--muted);
-  font-size:13.5px;
+  font-size:15px;
   letter-spacing:.06em;
   border-bottom:1px solid var(--line-strong);
   padding-bottom:3px;
@@ -224,7 +227,7 @@ section{
   border-radius:999px;
   border:1px solid var(--line-strong);
   color:var(--cream);
-  font-size:14px;
+  font-size:15.5px;
   background:rgba(255,255,255,.02);
   cursor:pointer;
   transition:border-color .3s, background .3s, transform .3s;
@@ -256,14 +259,14 @@ section{
 .hero-eyebrow{
   font-family:"Cormorant Garamond",serif;
   font-style:italic;
-  font-size:14px;
-  letter-spacing:.28em;
+  font-size:16px;
+  letter-spacing:.24em;
   color:var(--gold);
   margin-bottom:26px;
   opacity:.9;
 }
 .hero h1{
-  font-size:clamp(26px,7.2vw,36px);
+  font-size:clamp(30px,8.4vw,40px);
   color:var(--cream);
   margin-bottom:22px;
   text-shadow:0 0 40px rgba(201,168,106,.18);
@@ -277,16 +280,16 @@ section{
 }
 .hero-name .jp{
   font-family:"Shippori Mincho B1",serif;
-  font-size:22px;
+  font-size:24px;
   color:var(--gold-light);
 }
 .hero-name .en{
-  font-size:16px;
+  font-size:17px;
   color:var(--muted);
 }
 .hero-sub{
   color:var(--muted);
-  font-size:14.5px;
+  font-size:16.5px;
   font-weight:300;
   margin-bottom:40px;
   line-height:2;
@@ -332,14 +335,14 @@ section{
 .empathy .glow{background:radial-gradient(circle, rgba(201,168,106,.35), transparent 70%);width:260px;height:260px;top:10%;left:50%;transform:translateX(-50%);animation:drift 10s ease-in-out infinite;}
 .empathy-lines{
   font-family:"Shippori Mincho B1",serif;
-  font-size:19px;
+  font-size:21px;
   line-height:2.15;
   color:var(--cream);
 }
 .empathy-lines .weak{
   display:block;
   color:var(--muted-2);
-  font-size:14px;
+  font-size:15.5px;
   font-family:"Zen Kaku Gothic New",sans-serif;
   font-weight:300;
   margin:6px 0 6px;
@@ -351,7 +354,7 @@ section{
 .empathy-answer{
   margin-top:34px;
   color:var(--muted);
-  font-size:14.5px;
+  font-size:16px;
   font-weight:300;
 }
 
@@ -384,12 +387,12 @@ section{
   color:#241a0c;
 }
 .profile-card .name{
-  font-size:19px;
+  font-size:20px;
   color:var(--cream);
 }
 .profile-card .role{
   color:var(--muted);
-  font-size:12.5px;
+  font-size:13.5px;
   letter-spacing:.08em;
   margin-top:4px;
 }
@@ -408,12 +411,12 @@ section{
 .trait .mark{
   font-family:"Shippori Mincho B1",serif;
   color:var(--gold);
-  font-size:13px;
+  font-size:14px;
   flex:none;
   width:46px;
 }
 .trait .body h4{
-  font-size:15px;
+  font-size:16.5px;
   color:var(--cream);
   font-family:"Shippori Mincho B1",serif;
   font-weight:600;
@@ -422,7 +425,7 @@ section{
 .trait .body p{
   margin:0;
   color:var(--muted);
-  font-size:13.5px;
+  font-size:15px;
   font-weight:300;
 }
 .schedule-tags{
@@ -432,7 +435,7 @@ section{
   margin-top:24px;
 }
 .tag{
-  font-size:12px;
+  font-size:13px;
   letter-spacing:.04em;
   color:var(--gold-light);
   border:1px solid var(--line-strong);
@@ -465,14 +468,14 @@ section{
   display:block;
 }
 .content-item .name{
-  font-size:13.5px;
+  font-size:15px;
   color:var(--cream);
   font-weight:500;
   margin-bottom:4px;
 }
 .content-item .badge{
   display:inline-block;
-  font-size:10px;
+  font-size:11.5px;
   letter-spacing:.06em;
   padding:2px 8px;
   border-radius:999px;
@@ -524,7 +527,7 @@ section{
   display:flex;
   align-items:flex-start;
   gap:12px;
-  font-size:14px;
+  font-size:15.5px;
   color:var(--cream);
   font-weight:300;
 }
@@ -540,7 +543,7 @@ section{
 }
 .free-note{
   color:var(--muted);
-  font-size:13px;
+  font-size:14.5px;
   font-weight:300;
   margin-bottom:24px;
 }
@@ -576,14 +579,14 @@ section{
 }
 .paid-row h4{
   font-family:"Shippori Mincho B1",serif;
-  font-size:14.5px;
+  font-size:16px;
   color:var(--cream);
   font-weight:600;
   margin-bottom:5px;
 }
 .paid-row p{
   margin:0;
-  font-size:13px;
+  font-size:14.5px;
   color:var(--muted);
   font-weight:300;
 }
@@ -593,7 +596,7 @@ section{
   border-radius:14px;
   border:1px solid var(--line);
   color:var(--muted);
-  font-size:13px;
+  font-size:14.5px;
   font-weight:300;
   text-align:center;
   line-height:1.9;
@@ -615,7 +618,7 @@ section{
 .price-head > div{
   padding:18px 8px;
   text-align:center;
-  font-size:12.5px;
+  font-size:14px;
   color:var(--muted);
   border-bottom:1px solid var(--line);
 }
@@ -625,7 +628,7 @@ section{
   background:linear-gradient(135deg,var(--gold-light),var(--gold));
   font-weight:700;
 }
-.price-head .plan-paid small{display:block;font-weight:400;font-size:10.5px;margin-top:3px;}
+.price-head .plan-paid small{display:block;font-weight:400;font-size:11.5px;margin-top:3px;}
 .price-row{
   display:grid;
   grid-template-columns:1.3fr 1fr 1fr;
@@ -635,7 +638,7 @@ section{
 .price-row > div{
   padding:14px 8px;
   text-align:center;
-  font-size:12px;
+  font-size:13.5px;
   color:var(--muted);
   display:flex;
   align-items:center;
@@ -645,7 +648,7 @@ section{
   justify-content:flex-start;
   text-align:left;
   color:var(--cream);
-  font-size:12.5px;
+  font-size:14px;
   font-weight:400;
 }
 .check{color:var(--gold-light);font-size:15px;}
@@ -711,14 +714,14 @@ section{
   bottom:8px;right:8px;
   background:rgba(0,0,0,.55);
   color:#fff;
-  font-size:10px;
+  font-size:11px;
   padding:2px 6px;
   border-radius:4px;
   z-index:1;
 }
 .video-info{padding:12px 14px 16px;}
-.video-info .vt{font-size:13px;color:var(--cream);margin-bottom:4px;}
-.video-info .vd{font-size:11px;color:var(--muted-2);}
+.video-info .vt{font-size:14.5px;color:var(--cream);margin-bottom:4px;}
+.video-info .vd{font-size:12.5px;color:var(--muted-2);}
 
 /* ============================================================
    GALLERY
@@ -754,14 +757,14 @@ section{
   justify-content:center;
   gap:4px;
   color:var(--gold-light);
-  font-size:10.5px;
+  font-size:12px;
   text-align:center;
   background:rgba(11,9,8,.25);
 }
 .g-lockmark span.ico{font-size:16px;}
 .gallery-note{
   margin-top:18px;
-  font-size:12.5px;
+  font-size:14px;
   color:var(--muted-2);
   text-align:center;
 }
@@ -783,7 +786,7 @@ section{
   padding:13px 22px;
   border-radius:999px;
   border:1px solid var(--line-strong);
-  font-size:13.5px;
+  font-size:15px;
   color:var(--cream);
   background:rgba(255,255,255,.02);
   transition:border-color .3s, transform .3s;
@@ -800,7 +803,7 @@ section{
   padding:30px 24px;
   background:rgba(201,168,106,.04);
 }
-.discord-card p{color:var(--muted);font-size:13.5px;font-weight:300;margin:10px 0 22px;}
+.discord-card p{color:var(--muted);font-size:15px;font-weight:300;margin:10px 0 22px;}
 
 /* ============================================================
    FINAL CTA
@@ -830,7 +833,7 @@ section{
 .final-reassure{
   margin-top:22px;
   color:var(--muted-2);
-  font-size:12px;
+  font-size:13.5px;
   position:relative;z-index:1;
 }
 
@@ -844,7 +847,7 @@ footer{
   border-top:1px solid var(--line);
 }
 footer .en{font-size:14px;color:var(--gold);display:block;margin-bottom:8px;}
-footer .copy{color:var(--muted-2);font-size:11px;}
+footer .copy{color:var(--muted-2);font-size:12.5px;}
 
 /* toast */
 .toast{
@@ -875,6 +878,8 @@ a:focus-visible, button:focus-visible{
   .content-grid{grid-template-columns:repeat(3,1fr);}
 }
 </style>
+</head>
+<body>
 
 <!-- ============================================================
      1. HERO
@@ -1320,3 +1325,5 @@ a:focus-visible, button:focus-visible{
 
 })();
 </script>
+</body>
+</html>
