@@ -852,6 +852,104 @@ footer{
 footer .en{font-size:0.875rem;color:var(--gold);display:block;margin-bottom:8px;}
 footer .copy{color:var(--muted-2);font-size:0.7812rem;}
 
+/* ============================================================
+   AUTH MODAL (会員登録・ログイン)
+============================================================ */
+.auth-modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(6,5,4,.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease);
+  padding:0;
+}
+.auth-modal-overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.auth-modal{
+  position:relative;
+  width:100%;
+  max-width:var(--maxw);
+  max-height:88svh;
+  overflow-y:auto;
+  background:linear-gradient(160deg, var(--brown-2), var(--black));
+  border:1px solid var(--line-strong);
+  border-bottom:none;
+  border-radius:24px 24px 0 0;
+  padding:40px 26px calc(36px + env(safe-area-inset-bottom));
+  box-shadow:0 -20px 60px rgba(0,0,0,.5), var(--shadow-gold);
+  transform:translateY(24px);
+  transition:transform .4s var(--ease);
+}
+.auth-modal-overlay.show .auth-modal{
+  transform:translateY(0);
+}
+@media (min-width:600px){
+  .auth-modal-overlay{align-items:center;}
+  .auth-modal{
+    border-radius:24px;
+    border-bottom:1px solid var(--line-strong);
+    transform:translateY(12px) scale(.98);
+  }
+  .auth-modal-overlay.show .auth-modal{transform:translateY(0) scale(1);}
+}
+.auth-modal-close{
+  position:absolute;
+  top:14px;right:16px;
+  width:34px;height:34px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  color:var(--muted);
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
+  transition:color .3s, border-color .3s;
+}
+.auth-modal-close:hover{color:var(--gold-light);border-color:var(--gold);}
+.auth-field{
+  margin-bottom:16px;
+}
+.auth-field label{
+  display:block;
+  font-size:.8rem;
+  color:var(--muted);
+  letter-spacing:.04em;
+  margin-bottom:8px;
+}
+.auth-field input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid var(--line-strong);
+  background:rgba(255,255,255,.03);
+  color:var(--cream);
+  font-size:1rem;
+  font-family:inherit;
+  transition:border-color .3s, background .3s;
+}
+.auth-field input:focus{
+  outline:none;
+  border-color:var(--gold);
+  background:rgba(201,168,106,.05);
+}
+.auth-field input::placeholder{color:var(--muted-2);}
+.auth-error{
+  color:#e3a6a6;
+  font-size:.8rem;
+  text-align:center;
+  margin:14px 0 0;
+  min-height:1em;
+}
+
 /* toast */
 .toast{
   position:fixed;
@@ -931,7 +1029,7 @@ a:focus-visible, button:focus-visible{
     </div>
     <p class="hero-sub">優しい声と、近すぎない距離感で。<br>一日の終わりに、帰ってこれる場所を。</p>
     <div class="hero-ctas">
-      <button class="btn-primary" onclick="scrollToId('free')">無料で参加する</button>
+      <button class="btn-primary" onclick="openAuthModal()">無料で参加する</button>
       <button class="btn-ghost" onclick="scrollToId('pricing')">有料会員を見る ↓</button>
     </div>
   </div>
@@ -1062,7 +1160,7 @@ a:focus-visible, button:focus-visible{
         <li><span class="num">3</span>お金を使わなくても、この場所の雰囲気をそのまま体験できます</li>
       </ul>
       <p class="free-note">迷っているなら、無料のままで大丈夫です。<br>気が向いたときだけ、次に進んでください。</p>
-      <button class="btn-primary" onclick="scrollToId('final-cta')">無料で参加する</button>
+      <button class="btn-primary" onclick="openAuthModal()">無料で参加する</button>
     </div>
   </div>
 </section>
@@ -1164,7 +1262,7 @@ a:focus-visible, button:focus-visible{
     </div>
 
     <div class="price-cta fade-up d1">
-      <button class="btn-primary" onclick="scrollToId('final-cta')">無料で参加する</button>
+      <button class="btn-primary" onclick="openAuthModal()">無料で参加する</button>
       <button class="btn-ghost" id="upgrade-link">有料会員について詳しく</button>
     </div>
   </div>
@@ -1268,7 +1366,7 @@ a:focus-visible, button:focus-visible{
   <h2 class="fade-up">今夜、少しだけ<br>心をほどけに来ませんか。</h2>
   <p class="lead fade-up d1">難しい手続きはいりません。<br>まずは、無料で扉を開けるだけ。</p>
   <div class="fade-up d2">
-    <button class="btn-primary" onclick="showToast('ようこそ。ここが、あなたの席です。')">まずは無料で参加する</button>
+    <button class="btn-primary" onclick="openAuthModal()">まずは無料で参加する</button>
   </div>
   <p class="final-reassure fade-up d3">いつでも、静かにやめられます。<br>だから、気負わずに来てください。</p>
 </section>
@@ -1279,94 +1377,47 @@ a:focus-visible, button:focus-visible{
 </footer>
 
 <div class="sticky-cta" id="stickyCta">
-  <button class="btn-primary" onclick="scrollToId('final-cta')">無料で参加する</button>
+  <button class="btn-primary" onclick="openAuthModal()">無料で参加する</button>
+</div>
+
+<!-- ============================================================
+     会員登録・ログイン モーダル（Firebase Authentication）
+============================================================ -->
+<div class="auth-modal-overlay" id="authModalOverlay">
+  <div class="auth-modal">
+    <button class="auth-modal-close" id="authModalClose" aria-label="閉じる">×</button>
+
+    <div id="auth-form">
+      <p class="eyebrow" style="justify-content:center;">入口 — Sign in</p>
+      <h2 class="section-title" style="font-size:1.4rem;text-align:center;">無料会員登録・ログイン</h2>
+      <p class="lead" style="text-align:center;margin-bottom:26px;">メールアドレスとパスワードで、<br>すぐに参加できます。</p>
+
+      <div class="auth-field">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" placeholder="6文字以上" autocomplete="current-password">
+      </div>
+
+      <button class="btn-primary" id="signup-btn" style="width:100%;margin-bottom:12px;">無料で登録する</button>
+      <button class="btn-outline" id="login-btn" style="width:100%;">すでに登録済みの方はこちら（ログイン）</button>
+    </div>
+
+    <div id="welcome-screen" style="display:none;text-align:center;">
+      <p class="eyebrow" style="justify-content:center;">灯 — Welcome</p>
+      <h2 class="section-title" style="font-size:1.4rem;">ようこそ。</h2>
+      <p class="lead" style="margin-bottom:6px;"><span id="user-email"></span> さん</p>
+      <p class="lead" style="margin-bottom:30px;">ここが、あなたの席です。</p>
+      <button class="btn-outline" id="logout-btn">ログアウト</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script type="module">
-    // 1. Firebase SDKの必要な機能をインポート
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword, 
-      signInWithEmailAndPassword, 
-      signOut,
-      onAuthStateChanged 
-    } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-
-    // 2. あなたのFirebaseプロジェクトの設定情報（※ここに自分の設定を貼り付ける）
-    const firebaseConfig = {
-apiKey:"AIzaSyCDGZcgQGa1z1FLv2ZIo5RrESNfhW2KmPA"
-      authDomain: "mail-47a07.firebaseapp.com",
-      projectId: "mail-47a07",
-      storageBucket: "mail-47a07.firebasestorage.app",
-      messagingSenderId: "450950977278",
-appId:"1:450950977278:web:697a127f30c3457b88b7af",
-    };
-
-    // 3. Firebaseの初期化
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // HTML要素の取得
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const signupBtn = document.getElementById('signup-btn');
-    const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const authForm = document.getElementById('auth-form');
-    const welcomeScreen = document.getElementById('welcome-screen');
-    const userEmailSpan = document.getElementById('user-email');
-
-    // --- A. 新規登録処理 ---
-    signupBtn.addEventListener('click', async () => {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert('ユーザー登録に成功しました！');
-      } catch (error) {
-        alert('登録エラー: ' + error.message);
-      }
-    });
-
-    // --- B. ログイン処理 ---
-    loginBtn.addEventListener('click', async () => {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert('ログインしました！');
-      } catch (error) {
-        alert('ログインエラー: ' + error.message);
-      }
-    });
-
-    // --- C. ログアウト処理 ---
-    logoutBtn.addEventListener('click', async () => {
-      try {
-        await signOut(auth);
-        alert('ログアウトしました');
-      } catch (error) {
-        alert('ログアウトエラー: ' + error.message);
-      }
-    });
-
-    // --- D. ログイン状態の監視 ---
-    // ページを開いた時や、ログイン・ログアウトした時に自動で実行されます
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // ログインしている場合：マイページを表示
-        authForm.style.display = 'none';
-        welcomeScreen.style.display = 'block';
-        userEmailSpan.textContent = user.email;
-      } else {
-        // ログインしていない場合：フォームを表示
-        authForm.style.display = 'block';
-        welcomeScreen.style.display = 'none';
-      }
-    });
+<script>
 (function(){
   "use strict";
 
@@ -1375,6 +1426,32 @@ appId:"1:450950977278:web:697a127f30c3457b88b7af",
     var el = document.getElementById(id);
     if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); }
   };
+
+  /* ---------- auth modal open / close ---------- */
+  var authOverlay = document.getElementById("authModalOverlay");
+  var authCloseBtn = document.getElementById("authModalClose");
+
+  window.openAuthModal = function(){
+    if(!authOverlay) return;
+    authOverlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+  };
+  window.closeAuthModal = function(){
+    if(!authOverlay) return;
+    authOverlay.classList.remove("show");
+    document.body.style.overflow = "";
+  };
+  if(authCloseBtn){
+    authCloseBtn.addEventListener("click", window.closeAuthModal);
+  }
+  if(authOverlay){
+    authOverlay.addEventListener("click", function(e){
+      if(e.target === authOverlay){ window.closeAuthModal(); }
+    });
+  }
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){ window.closeAuthModal(); }
+  });
 
   var toastEl = document.getElementById("toast");
   var toastTimer;
@@ -1441,5 +1518,94 @@ appId:"1:450950977278:web:697a127f30c3457b88b7af",
 
 })();
 </script>
+
+<!-- ============================================================
+     Firebase Authentication（会員登録・ログイン）
+     ※ firebaseConfig の apiKey は後ほどご自身で記入してください
+============================================================ -->
+<script type="module">
+    // 1. Firebase SDKの必要な機能をインポート
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+    // 2. あなたのFirebaseプロジェクトの設定情報
+    const firebaseConfig = {
+      apiKey: "", // ← ここにAPIキーを記入してください
+      authDomain: "mail-47a07.firebaseapp.com",
+      projectId: "mail-47a07",
+      storageBucket: "mail-47a07.firebasestorage.app",
+      messagingSenderId: "450950977278",
+      appId: "1:450950977278:web:697a127f30c3457b88b7af",
+    };
+
+    // 3. Firebaseの初期化
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // HTML要素の取得
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const signupBtn = document.getElementById('signup-btn');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const authForm = document.getElementById('auth-form');
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const userEmailSpan = document.getElementById('user-email');
+
+    // --- A. 新規登録処理 ---
+    signupBtn.addEventListener('click', async () => {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert('ユーザー登録に成功しました！');
+      } catch (error) {
+        alert('登録エラー: ' + error.message);
+      }
+    });
+
+    // --- B. ログイン処理 ---
+    loginBtn.addEventListener('click', async () => {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('ログインしました！');
+      } catch (error) {
+        alert('ログインエラー: ' + error.message);
+      }
+    });
+
+    // --- C. ログアウト処理 ---
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+        alert('ログアウトしました');
+      } catch (error) {
+        alert('ログアウトエラー: ' + error.message);
+      }
+    });
+
+    // --- D. ログイン状態の監視 ---
+    // ページを開いた時や、ログイン・ログアウトした時に自動で実行されます
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // ログインしている場合：マイページを表示
+        authForm.style.display = 'none';
+        welcomeScreen.style.display = 'block';
+        userEmailSpan.textContent = user.email;
+      } else {
+        // ログインしていない場合：フォームを表示
+        authForm.style.display = 'block';
+        welcomeScreen.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
