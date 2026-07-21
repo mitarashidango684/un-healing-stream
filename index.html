@@ -742,6 +742,15 @@ section{
   overflow:hidden;
   background:linear-gradient(135deg, var(--gold-deep), var(--brown-2));
 }
+.g-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 20%;
+  display:block;
+  transition:transform .5s var(--ease);
+}
+.g-item:hover img{transform:scale(1.06);}
 .g-item:nth-child(3n+1){background:linear-gradient(135deg, #4a3a6b, var(--navy-2));}
 .g-item:nth-child(3n+2){background:linear-gradient(135deg, var(--gold-deep), var(--brown-2));}
 .g-item:nth-child(3n){background:linear-gradient(135deg, #6b3a4a, var(--brown-2));}
@@ -1313,16 +1322,16 @@ a:focus-visible, button:focus-visible{
     <p class="lead fade-up" style="margin-bottom:24px;">リスナーが描いてくれた絵と、有料会員限定のイベントイラスト。</p>
 
     <div class="gallery-grid fade-up">
-      <div class="g-item"><img src="IMG_1396.PNG" alt="ファンアート1" loading="lazy">，</div>
-      <div class="g-item"><img src="IIMG_1393.PNG" alt="ファンアート2" loading="lazy"></div>
-      <div class="g-item locked" data-lock="true"><img src="IIMG_1400.PNG" alt="イベントイラスト2" loading="lazy"></div>
+      <div class="g-item"><img src="IMG_1398.PNG" alt="ファンアート：魔法使いのじゅん" loading="lazy"></div>
+      <div class="g-item"><img src="IMG_1396.PNG" alt="ファンアート：バーでグラスを傾けるじゅん" loading="lazy"></div>
+      <div class="g-item locked" data-lock="true"><div class="inner"></div>
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
-      <div class="g-item"><img src="IMG_1398.PNG" alt="ファンアート3" loading="lazy"></div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1402.PNG" alt="イベントイラスト1" loading="lazy"></div>
+      <div class="g-item"><img src="IMG_1393.PNG" alt="ファンアート：くつろぐじゅん" loading="lazy"></div>
+      <div class="g-item locked" data-lock="true"><img src="IMG_1400.PNG" alt="有料会員限定イラスト：ひまわりのじゅん" loading="lazy">
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1397.PNG" alt="イベントイラスト3" loading="lazy"></div>
+      <div class="g-item locked" data-lock="true"><img src="IMG_1397.PNG" alt="有料会員限定イラスト：クラゲと佇むじゅん" loading="lazy">
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
     </div>
@@ -1536,7 +1545,7 @@ a:focus-visible, button:focus-visible{
 
     // 2. あなたのFirebaseプロジェクトの設定情報
     const firebaseConfig = {
-      apiKey: "AIzaSyCDGZcgQGa1z1FLv2ZIo5RrESNfhW2KmPA", 
+      apiKey: "", // ← ここにAPIキーを記入してください
       authDomain: "mail-47a07.firebaseapp.com",
       projectId: "mail-47a07",
       storageBucket: "mail-47a07.firebasestorage.app",
