@@ -1,20 +1,14 @@
-<!-- ============================================================
-     じゅん ファンクラブLP（WordPress固定ページ 本文貼り付け用）
-     使い方：固定ページ編集画面で「カスタムHTML」ブロック（またはテキストエディタ／コードエディタモード）に
-     このコード全体をそのまま貼り付けてください。
-
-     ※ ファンアート画像（IMG_1398.PNG / IMG_1396-2.PNG / IMG_1393-2.PNG / IMG_1400-2.PNG / IMG_1397-2.PNG）は、
-        このHTMLと同じ階層、またはご指定のパスに配置してください。
-        GitHub等でホスティングする場合は、img src をそのURLに差し替えてください。
-
-     ※ Firebase設定の apiKey は、ページ下部のスクリプト内でご自身で記入してください。
-     ※ Firebaseコンソール側で「承認済みドメイン」に、このLPを設置するWordPressの
-        ドメイン（例: yourdomain.com）を追加しておく必要があります。
-============================================================ -->
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>じゅん ファンクラブ｜ここは、少しだけ心をほどける場所。</title>
+<meta name="description" content="Spoon配信者「じゅん」のファンクラブ。優しい声と近い距離で、一日の終わりに帰ってこれる場所。まずは無料で参加できます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap');
-
 /* ============================================================
    TOKENS
 ============================================================ */
@@ -965,6 +959,57 @@ footer .copy{color:var(--muted-2);font-size:0.7812rem;}
   min-height:1em;
 }
 
+/* ============================================================
+   LIGHTBOX（ファンアート拡大表示）
+============================================================ */
+.lightbox-overlay{
+  position:fixed;
+  inset:0;
+  z-index:110;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  background:rgba(6,5,4,.88);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease);
+}
+.lightbox-overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.lightbox-img{
+  max-width:100%;
+  max-height:86svh;
+  border-radius:14px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6), 0 0 0 1px var(--line-strong);
+  transform:scale(.94);
+  transition:transform .35s var(--ease);
+  cursor:zoom-out;
+}
+.lightbox-overlay.show .lightbox-img{
+  transform:scale(1);
+}
+.lightbox-close{
+  position:absolute;
+  top:20px;right:20px;
+  width:42px;height:42px;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:rgba(255,255,255,.04);
+  color:var(--cream);
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  transition:color .3s, border-color .3s, background .3s;
+  z-index:1;
+}
+.lightbox-close:hover{color:var(--gold-light);border-color:var(--gold);background:rgba(201,168,106,.08);}
+.g-item-viewable{cursor:zoom-in;}
+
 /* toast */
 .toast{
   position:fixed;
@@ -1025,6 +1070,8 @@ a:focus-visible, button:focus-visible{
   }
 }
 </style>
+</head>
+<body>
 
 <!-- ============================================================
      1. HERO
@@ -1326,12 +1373,12 @@ a:focus-visible, button:focus-visible{
     <p class="lead fade-up" style="margin-bottom:24px;">リスナーが描いてくれた絵と、有料会員限定のイベントイラスト。</p>
 
     <div class="gallery-grid fade-up">
-      <div class="g-item"><img src="IMG_1398.PNG" alt="ファンアート：魔法使いのじゅん" loading="lazy"></div>
-      <div class="g-item"><img src="IMG_1396-2.PNG" alt="ファンアート：バーでグラスを傾けるじゅん" loading="lazy"></div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1402-2.PNG" alt="ファンアート：制服じゅん" loading="lazy"></div>
+      <div class="g-item g-item-viewable"><img src="IMG_1398.PNG" alt="ファンアート：魔法使いのじゅん" loading="lazy"></div>
+      <div class="g-item g-item-viewable"><img src="IMG_1396-2.PNG" alt="ファンアート：バーでグラスを傾けるじゅん" loading="lazy"></div>
+      <div class="g-item locked" data-lock="true"><div class="inner"></div>
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
-      <div class="g-item"><img src="IMG_1393-2.PNG" alt="ファンアート：くつろぐじゅん" loading="lazy"></div>
+      <div class="g-item g-item-viewable"><img src="IMG_1393-2.PNG" alt="ファンアート：くつろぐじゅん" loading="lazy"></div>
       <div class="g-item locked" data-lock="true"><img src="IMG_1400-2.PNG" alt="有料会員限定イラスト：ひまわりのじゅん" loading="lazy">
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
@@ -1428,14 +1475,15 @@ a:focus-visible, button:focus-visible{
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
-
-
 <!-- ============================================================
-     Firebase Authentication（会員登録・ログイン）
-     ※ firebaseConfig の apiKey は後ほどご自身で記入してください
+     画像拡大表示（ライトボックス）
 ============================================================ -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose" aria-label="閉じる">×</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 (function(){
@@ -1446,6 +1494,40 @@ a:focus-visible, button:focus-visible{
     var el = document.getElementById(id);
     if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); }
   };
+
+  /* ---------- lightbox (fan art enlarge) ---------- */
+  var lightboxOverlay = document.getElementById("lightboxOverlay");
+  var lightboxImg = document.getElementById("lightboxImg");
+  var lightboxClose = document.getElementById("lightboxClose");
+
+  function openLightbox(src, alt){
+    if(!lightboxOverlay) return;
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || "";
+    lightboxOverlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox(){
+    if(!lightboxOverlay) return;
+    lightboxOverlay.classList.remove("show");
+    document.body.style.overflow = "";
+    lightboxImg.src = "";
+  }
+  var viewableImgs = document.querySelectorAll(".g-item-viewable img");
+  viewableImgs.forEach(function(img){
+    img.addEventListener("click", function(){
+      openLightbox(img.getAttribute("src"), img.getAttribute("alt"));
+    });
+  });
+  if(lightboxClose){ lightboxClose.addEventListener("click", closeLightbox); }
+  if(lightboxOverlay){
+    lightboxOverlay.addEventListener("click", function(e){
+      if(e.target === lightboxOverlay || e.target === lightboxImg){ closeLightbox(); }
+    });
+  }
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){ closeLightbox(); }
+  });
 
   /* ---------- auth modal open / close ---------- */
   var authOverlay = document.getElementById("authModalOverlay");
@@ -1539,6 +1621,10 @@ a:focus-visible, button:focus-visible{
 })();
 </script>
 
+<!-- ============================================================
+     Firebase Authentication（会員登録・ログイン）
+     ※ firebaseConfig の apiKey は後ほどご自身で記入してください
+============================================================ -->
 <script type="module">
     // 1. Firebase SDKの必要な機能をインポート
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
@@ -1623,3 +1709,5 @@ a:focus-visible, button:focus-visible{
       }
     });
   </script>
+</body>
+</html>
