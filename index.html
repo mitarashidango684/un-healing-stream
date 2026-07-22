@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>じゅん ファンクラブ｜ここは、少しだけ心をほどける場所。</title>
-<meta name="description" content="Spoon配信者「じゅん」のファンクラブ。優しい声と近い距離で、一日の終わりに帰ってこれる場所。まずは無料で参加できます。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+<!-- ============================================================
+     じゅん ファンクラブLP（WordPress固定ページ 本文貼り付け用）
+     使い方：固定ページ編集画面で「カスタムHTML」ブロック（またはテキストエディタ／コードエディタモード）に
+     このコード全体をそのまま貼り付けてください。
+
+     ※ ファンアート画像（IMG_1398.PNG / IMG_1396-2.PNG / IMG_1393-2.PNG / IMG_1400-2.PNG / IMG_1397-2.PNG）は、
+        このHTMLと同じ階層、またはご指定のパスに配置してください。
+        GitHub等でホスティングする場合は、img src をそのURLに差し替えてください。
+
+     ※ Firebase設定の apiKey は、ページ下部のスクリプト内でご自身で記入してください。
+     ※ Firebaseコンソール側で「承認済みドメイン」に、このLPを設置するWordPressの
+        ドメイン（例: yourdomain.com）を追加しておく必要があります。
+============================================================ -->
+
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap');
+
 /* ============================================================
    TOKENS
 ============================================================ */
@@ -1019,8 +1025,6 @@ a:focus-visible, button:focus-visible{
   }
 }
 </style>
-</head>
-<body>
 
 <!-- ============================================================
      1. HERO
@@ -1323,15 +1327,15 @@ a:focus-visible, button:focus-visible{
 
     <div class="gallery-grid fade-up">
       <div class="g-item"><img src="IMG_1398.PNG" alt="ファンアート：魔法使いのじゅん" loading="lazy"></div>
-      <div class="g-item"><img src="IMG_1396.PNG" alt="ファンアート：バーでグラスを傾けるじゅん" loading="lazy"></div>
+      <div class="g-item"><img src="IMG_1396-2.PNG" alt="ファンアート：バーでグラスを傾けるじゅん" loading="lazy"></div>
       <div class="g-item locked" data-lock="true"><div class="inner"></div>
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
-      <div class="g-item"><img src="IMG_1393.PNG" alt="ファンアート：くつろぐじゅん" loading="lazy"></div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1400.PNG" alt="有料会員限定イラスト：ひまわりのじゅん" loading="lazy">
+      <div class="g-item"><img src="IMG_1393-2.PNG" alt="ファンアート：くつろぐじゅん" loading="lazy"></div>
+      <div class="g-item locked" data-lock="true"><img src="IMG_1400-2.PNG" alt="有料会員限定イラスト：ひまわりのじゅん" loading="lazy">
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1397.PNG" alt="有料会員限定イラスト：クラゲと佇むじゅん" loading="lazy">
+      <div class="g-item locked" data-lock="true"><img src="IMG_1397-2.PNG" alt="有料会員限定イラスト：クラゲと佇むじゅん" loading="lazy">
         <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
       </div>
     </div>
@@ -1425,6 +1429,13 @@ a:focus-visible, button:focus-visible{
 </div>
 
 <div class="toast" id="toast"></div>
+
+
+
+<!-- ============================================================
+     Firebase Authentication（会員登録・ログイン）
+     ※ firebaseConfig の apiKey は後ほどご自身で記入してください
+============================================================ -->
 
 <script>
 (function(){
@@ -1528,10 +1539,6 @@ a:focus-visible, button:focus-visible{
 })();
 </script>
 
-<!-- ============================================================
-     Firebase Authentication（会員登録・ログイン）
-     ※ firebaseConfig の apiKey は後ほどご自身で記入してください
-============================================================ -->
 <script type="module">
     // 1. Firebase SDKの必要な機能をインポート
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
@@ -1616,5 +1623,3 @@ a:focus-visible, button:focus-visible{
       }
     });
   </script>
-</body>
-</html>
