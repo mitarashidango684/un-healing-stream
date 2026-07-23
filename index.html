@@ -1749,14 +1749,13 @@ a:focus-visible, button:focus-visible{
     }
   };
 
-  // デモ用：CTAボタン／コンパクトタイルのクリックで疑似決済を実行
-  // ※ 実際にはここで Stripe Checkout などにリダイレクトし、
-  //    決済完了後の success_url で setPremiumStatus(true) を呼ぶ形になります
+  // 決済用URL（Stripe Payment Link）
+  var PREMIUM_CHECKOUT_URL = "https://buy.stripe.com/cNi00j1MfdD66Kw0Mj77O00";
+
+  // CTAボタン／コンパクトタイルのクリックで決済ページへ遷移
   function handlePremiumCtaClick(e){
     e.stopPropagation();
-    window.setPremiumStatus(true);
-    // ページを再読み込みして状態を反映したい場合は代わりに以下を使う：
-    // location.reload();
+    window.location.href = PREMIUM_CHECKOUT_URL;
   }
   document.querySelectorAll(".premium-cta").forEach(function(btn){
     btn.addEventListener("click", handlePremiumCtaClick);
@@ -1768,6 +1767,17 @@ a:focus-visible, button:focus-visible{
       }
     });
   });
+
+  // 決済完了後、LPに ?paid=1 付きで戻ってきたら自動でロック解除する
+  // （Stripeの「支払い後のリダイレクト先」に、このLPのURL＋?paid=1 を設定してください）
+  var checkoutParams = new URLSearchParams(window.location.search);
+  if(checkoutParams.get("paid") === "1"){
+    window.setPremiumStatus(true);
+    // URLから ?paid=1 を消してリロードしても再度解除処理が走らないようにする
+    checkoutParams.delete("paid");
+    var cleanUrl = window.location.pathname + (checkoutParams.toString() ? "?" + checkoutParams.toString() : "") + window.location.hash;
+    window.history.replaceState({}, "", cleanUrl);
+  }
 
   // ⑥ 初期化処理：ページロード時に一度だけ判定して表示を切り替える
   applyPremiumLocks();
@@ -1915,7 +1925,7 @@ a:focus-visible, button:focus-visible{
 
     // 2. あなたのFirebaseプロジェクトの設定情報
     const firebaseConfig = {
-      apiKey: "", // ← ここにAPIキーを記入してください
+      apiKey: "AIzaSyCDGZcgQGa1z1FLv2ZIo5RrESNfhW2KmPA", 
       authDomain: "mail-47a07.firebaseapp.com",
       projectId: "mail-47a07",
       storageBucket: "mail-47a07.firebasestorage.app",
