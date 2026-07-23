@@ -782,6 +782,148 @@ section{
 }
 
 /* ============================================================
+   PREMIUM CONTENT LOCK SYSTEM（有料会員限定コンテンツ）
+   .premium-content[data-premium="true"] を is-locked クラスの
+   有無で「ぼかし＋オーバーレイ」⇔「通常表示」に切り替える
+============================================================ */
+.premium-content{
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+}
+.premium-content .premium-body{
+  transition:filter .5s var(--ease);
+}
+.premium-content.is-locked .premium-body{
+  filter:blur(14px) brightness(.55) saturate(.8);
+  pointer-events:none;
+  user-select:none;
+}
+.premium-content:not(.is-locked) .premium-body.just-unlocked{
+  animation:premiumUnlockFade .7s var(--ease);
+}
+@keyframes premiumUnlockFade{
+  from{filter:blur(14px) brightness(.55) saturate(.8); opacity:.4;}
+  to{filter:blur(0) brightness(1) saturate(1); opacity:1;}
+}
+.premium-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  text-align:center;
+  padding:20px;
+  background:rgba(11,9,8,.4);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .4s var(--ease);
+}
+.premium-content.is-locked .premium-overlay{
+  opacity:1;
+  pointer-events:auto;
+}
+.premium-overlay-icon{
+  font-size:1.6rem;
+  filter:drop-shadow(0 0 12px rgba(201,168,106,.5));
+}
+.premium-overlay-text{
+  font-family:"Shippori Mincho B1",serif;
+  font-size:0.95rem;
+  color:var(--cream);
+  line-height:1.7;
+  margin:0;
+}
+.premium-cta{
+  padding:13px 24px;
+  font-size:0.85rem;
+  white-space:nowrap;
+}
+
+/* コンパクト版（ギャラリーの正方形タイル用） */
+.premium-content.compact{
+  cursor:pointer;
+}
+.premium-content.compact .premium-overlay{
+  padding:8px;
+  gap:6px;
+  background:rgba(11,9,8,.5);
+}
+.premium-content.compact .premium-overlay-icon{font-size:1.1rem;}
+.premium-content.compact .premium-overlay-text{
+  font-size:0.7rem;
+  line-height:1.5;
+}
+.premium-content.compact .premium-cta{
+  display:none; /* タイルが小さいのでタイル全体をCTA代わりにする */
+}
+
+/* 限定コンテンツ デモセクション */
+.premium-demo-sec{background:linear-gradient(180deg, var(--navy), var(--black));}
+.premium-demo-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.voice-card, .message-card{
+  background:linear-gradient(160deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px;
+}
+.voice-card{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.voice-card-icon{
+  flex:none;
+  width:46px;height:46px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold-deep));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+}
+.voice-card-title{
+  font-size:0.9rem;
+  color:var(--cream);
+  margin-bottom:10px;
+}
+.voice-card-wave{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  height:22px;
+  margin-bottom:6px;
+}
+.voice-card-wave span{
+  display:block;
+  width:3px;
+  border-radius:2px;
+  background:var(--gold);
+  opacity:.75;
+}
+.voice-card-meta{
+  font-size:0.75rem;
+  color:var(--muted-2);
+}
+.message-card-from{
+  font-family:"Shippori Mincho B1",serif;
+  font-size:0.85rem;
+  color:var(--gold-light);
+  margin-bottom:10px;
+}
+.message-card-text{
+  margin:0;
+  font-size:0.95rem;
+  color:var(--cream);
+  font-weight:300;
+  line-height:1.9;
+}
+
+/* ============================================================
    SNS
 ============================================================ */
 .sns-sec{background:var(--navy);text-align:center;}
@@ -1375,18 +1517,80 @@ a:focus-visible, button:focus-visible{
     <div class="gallery-grid fade-up">
       <div class="g-item g-item-viewable"><img src="IMG_1398.PNG" alt="ファンアート：魔法使いのじゅん" loading="lazy"></div>
       <div class="g-item g-item-viewable"><img src="IMG_1396-2.PNG" alt="ファンアート：バーでグラスを傾けるじゅん" loading="lazy"></div>
-      <div class="g-item locked" data-lock="true"><div class="inner"></div>
-        <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
+      <div class="g-item premium-content compact" data-premium="true">
+        <div class="premium-body"><div class="inner"></div></div>
+        <div class="premium-overlay">
+          <span class="premium-overlay-icon">🔒</span>
+          <p class="premium-overlay-text">有料会員限定</p>
+        </div>
       </div>
       <div class="g-item g-item-viewable"><img src="IMG_1393-2.PNG" alt="ファンアート：くつろぐじゅん" loading="lazy"></div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1400-2.PNG" alt="有料会員限定イラスト：ひまわりのじゅん" loading="lazy">
-        <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
+      <div class="g-item premium-content compact" data-premium="true">
+        <div class="premium-body"><img src="IMG_1400-2.PNG" alt="有料会員限定イラスト：ひまわりのじゅん" loading="lazy"></div>
+        <div class="premium-overlay">
+          <span class="premium-overlay-icon">🔒</span>
+          <p class="premium-overlay-text">有料会員限定</p>
+        </div>
       </div>
-      <div class="g-item locked" data-lock="true"><img src="IMG_1397-2.PNG" alt="有料会員限定イラスト：クラゲと佇むじゅん" loading="lazy">
-        <div class="g-lockmark"><span class="ico">🔒</span>有料会員限定</div>
+      <div class="g-item premium-content compact" data-premium="true">
+        <div class="premium-body"><img src="IMG_1397-2.PNG" alt="有料会員限定イラスト：クラゲと佇むじゅん" loading="lazy"></div>
+        <div class="premium-overlay">
+          <span class="premium-overlay-icon">🔒</span>
+          <p class="premium-overlay-text">有料会員限定</p>
+        </div>
       </div>
     </div>
     <p class="gallery-note fade-up d1">ぼかされた作品は、有料会員になるとそのまま見られます。</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     9.5 有料会員限定コンテンツ（ロック解除デモ）
+============================================================ -->
+<section class="premium-demo-sec">
+  <div class="wrap">
+    <p class="eyebrow">奥の間 — Unlockable</p>
+    <h2 class="section-title fade-up">有料会員限定コンテンツ</h2>
+    <p class="lead fade-up" style="margin-bottom:26px;">解除すれば、そのまま楽しめます。</p>
+
+    <div class="premium-demo-list">
+      <div class="premium-content fade-up" data-premium="true">
+        <div class="premium-body">
+          <div class="voice-card">
+            <div class="voice-card-icon">🎧</div>
+            <div>
+              <div class="voice-card-title">限定ボイス「おやすみ、また明日。」</div>
+              <div class="voice-card-wave">
+                <span style="height:8px;"></span><span style="height:16px;"></span><span style="height:10px;"></span>
+                <span style="height:20px;"></span><span style="height:12px;"></span><span style="height:18px;"></span>
+                <span style="height:9px;"></span><span style="height:15px;"></span><span style="height:11px;"></span>
+                <span style="height:19px;"></span><span style="height:13px;"></span><span style="height:7px;"></span>
+              </div>
+              <div class="voice-card-meta">2:14</div>
+            </div>
+          </div>
+        </div>
+        <div class="premium-overlay">
+          <span class="premium-overlay-icon">🔒</span>
+          <p class="premium-overlay-text">このコンテンツは<br>有料会員限定です</p>
+          <button class="btn-primary premium-cta">有料会員になる（月額500円）</button>
+        </div>
+      </div>
+
+      <div class="premium-content fade-up d1" data-premium="true">
+        <div class="premium-body">
+          <div class="message-card">
+            <div class="message-card-from">じゅん より</div>
+            <p class="message-card-text">今日も一日、おつかれさま。<br>ゆっくり休んでね。また話そう。</p>
+          </div>
+        </div>
+        <div class="premium-overlay">
+          <span class="premium-overlay-icon">🔒</span>
+          <p class="premium-overlay-text">このコンテンツは<br>有料会員限定です</p>
+          <button class="btn-primary premium-cta">有料会員になる（月額500円）</button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1494,6 +1698,79 @@ a:focus-visible, button:focus-visible{
     var el = document.getElementById(id);
     if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); }
   };
+
+  /* ============================================================
+     ① 会員ステータスの管理 / 有料会員限定コンテンツのロック制御
+     ============================================================
+     判定の優先順位:
+       パターンB（推奨）: window.currentUser.isPremium が boolean で
+         存在すればそれを使う（実際のログインユーザー情報と連携する場合）
+       パターンA（簡易）: 上記が無ければ localStorage の isPremium を見る
+  ------------------------------------------------------------ */
+  function getIsPremium(){
+    if(window.currentUser && typeof window.currentUser.isPremium === "boolean"){
+      return window.currentUser.isPremium;
+    }
+    return localStorage.getItem("isPremium") === "true";
+  }
+
+  // ③ 表示制御：isPremium の値に応じて .premium-content の見た目を切り替える
+  function applyPremiumLocks(){
+    var isPremium = getIsPremium();
+    var items = document.querySelectorAll('.premium-content[data-premium="true"]');
+    items.forEach(function(el){
+      var wasLocked = el.classList.contains("is-locked");
+      if(isPremium){
+        el.classList.remove("is-locked");
+        if(wasLocked){
+          // ⑦ ロック解除時にふわっとフェードインさせる
+          var body = el.querySelector(".premium-body");
+          if(body){
+            body.classList.remove("just-unlocked");
+            void body.offsetWidth; // reflow でアニメーションを再トリガー
+            body.classList.add("just-unlocked");
+          }
+        }
+      } else {
+        el.classList.add("is-locked");
+      }
+    });
+  }
+  window.applyPremiumLocks = applyPremiumLocks;
+
+  // ⑤ 決済成功時に呼び出す想定の関数
+  //    Stripe等の決済完了コールバック（success_url 側の処理やWebhook経由の
+  //    状態更新など）から window.setPremiumStatus(true) を呼べば解除されます
+  window.setPremiumStatus = function(isPremium){
+    localStorage.setItem("isPremium", isPremium ? "true" : "false");
+    applyPremiumLocks();
+    if(isPremium){
+      showToast("有料会員になりました。ロックを解除しました。");
+    }
+  };
+
+  // デモ用：CTAボタン／コンパクトタイルのクリックで疑似決済を実行
+  // ※ 実際にはここで Stripe Checkout などにリダイレクトし、
+  //    決済完了後の success_url で setPremiumStatus(true) を呼ぶ形になります
+  function handlePremiumCtaClick(e){
+    e.stopPropagation();
+    window.setPremiumStatus(true);
+    // ページを再読み込みして状態を反映したい場合は代わりに以下を使う：
+    // location.reload();
+  }
+  document.querySelectorAll(".premium-cta").forEach(function(btn){
+    btn.addEventListener("click", handlePremiumCtaClick);
+  });
+  document.querySelectorAll(".premium-content.compact").forEach(function(el){
+    el.addEventListener("click", function(){
+      if(el.classList.contains("is-locked")){
+        handlePremiumCtaClick({stopPropagation:function(){}});
+      }
+    });
+  });
+
+  // ⑥ 初期化処理：ページロード時に一度だけ判定して表示を切り替える
+  applyPremiumLocks();
 
   /* ---------- lightbox (fan art enlarge) ---------- */
   var lightboxOverlay = document.getElementById("lightboxOverlay");
